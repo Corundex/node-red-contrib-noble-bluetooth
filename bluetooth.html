@@ -1,226 +1,231 @@
 <script type="text/javascript">
-    RED.nodes.registerType('BLE scanner',{
-        category: 'Bluetooth',
-        color: '#4d94ff',
-        defaults: {
-            name: {value:""},
-            services: {value:"", validate: RED.validators.typedInput("servicesType")},
-            servicesType: {value:"str"},
-            continuous: {value:false}
-        },
-        inputs:1,
-        outputs:1,
-        icon: "bluetooth.png",
-        label: function() {
-            return this.name||"BLE scanner";
-        },
-        oneditprepare: function() {
-            $('#node-input-services').typedInput({
-                default: 'str',
-                typeField: $("#node-input-servicesType"),
-                types: ['str','json']
-            });
-        }
-    });
+  RED.nodes.registerType("BLE scanner", {
+    category: "Bluetooth",
+    color: "#4d94ff",
+    defaults: {
+      name: { value: "" },
+      services: { value: "", validate: RED.validators.typedInput("servicesType") },
+      servicesType: { value: "str" },
+      continuous: { value: false },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "bluetooth.png",
+    label: function () {
+      return this.name || "BLE scanner";
+    },
+    oneditprepare: function () {
+      $("#node-input-services").typedInput({
+        default: "str",
+        typeField: $("#node-input-servicesType"),
+        types: ["str", "json"],
+      });
+    },
+  });
 </script>
 
 <script type="text/x-red" data-template-name="BLE scanner">
-    <div class="form-row">
-        <label for="node-input-services"><i class="fa fa-envelope"></i> Services</label>
-        <input type="text" id="node-input-services" style="width: 70%">
-        <input type="hidden" id="node-input-servicesType">
-    </div>
-    <div class="form-row">
-        <label for="node-input-continuous">&nbsp;</label>
-        <input type="checkbox" id="node-input-continuous" style="display:inline-block; width:22px; vertical-align:baseline;">Continuous scanning
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+  <div class="form-row">
+      <label for="node-input-services"><i class="fa fa-envelope"></i> Services</label>
+      <input type="text" id="node-input-services" style="width: 70%">
+      <input type="hidden" id="node-input-servicesType">
+  </div>
+  <div class="form-row">
+      <label for="node-input-continuous">&nbsp;</label>
+      <input type="checkbox" id="node-input-continuous" style="display:inline-block; width:22px; vertical-align:baseline;">Continuous scanning
+  </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
 </script>
 
 <script type="text/html" data-help-name="BLE scanner">
-    <p>A bluetooth scanner node that will scan for devices in the vicinity.</p>
-    
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>topic <span class="property-type">string</span></dt>
-        <dd> Define the scanner action. Must be either <code>start</code> or <code>stop</code> </dd>
-        <dt class="optional">services
-            <span class="property-type">array | string</span>
-        </dt>
-        <dd> Only scan for devices advertising these service UUID's. </dd>
-        <dt class="optional">continuous
-            <span class="property-type">boolean</span>
-        </dt>
-        <dd> Set to <code>true</code> to continue scanning after discovering first device. <code>false</code> by default </dd>
-        <dt class="optional">timeout
-            <span class="property-type">number</span>
-        </dt>
-        <dd> Timeout in milliseconds after which the scanner is automatically stopped </dd>
-    </dl>
-    
-    <h3>Outputs</h3>
-    <dl class="message-properties">
-    <dt>peripheral <span class="property-type">string</span></dt>
-    <dd> Internal reference for the discovered peripheral. Must be passed on to other BLE nodes </dd>
-    <dt>address <span class="property-type">string</span></dt>
-    <dd> The bluetooth MAC address of the peripheral </dd>
-    <dt>rssi <span class="property-type">number</span></dt>
-    <dd> The received signal strength (RSSI) </dd>
-    <dt>txPowerLevel <span class="property-type">number</span></dt>
-    <dd> The transmitter power level </dd>
-    <dt class="optional">connectable <span class="property-type">boolean</span></dt>
-    <dd> Indication if the peripheral is accepting connection </dd>
-    <dt class="optional">name <span class="property-type">string</span></dt>
-    <dd> Local name of the peripheral </dd>
-    <dt class="optional">manufacturerData <span class="property-type">buffer</span></dt>
-    <dd> Vendor specific data </dd>
-    <dt class="optional">services <span class="property-type">array</span></dt>
-    <dd> List of discovered service UUID's </dd>
+  <p>A bluetooth scanner node that will scan for devices in the vicinity.</p>
 
-</dl>
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>Define the scanner action. Must be either <code>start</code> or <code>stop</code></dd>
+    <dt class="optional">
+      services
+      <span class="property-type">array | string</span>
+    </dt>
+    <dd>Only scan for devices advertising these service UUID's.</dd>
+    <dt class="optional">
+      continuous
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd>Set to <code>true</code> to continue scanning after discovering first device. <code>false</code> by default</dd>
+    <dt class="optional">
+      timeout
+      <span class="property-type">number</span>
+    </dt>
+    <dd>Timeout in milliseconds after which the scanner is automatically stopped</dd>
+  </dl>
+
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>peripheral <span class="property-type">string</span></dt>
+    <dd>Internal reference for the discovered peripheral. Must be passed on to other BLE nodes</dd>
+    <dt>address <span class="property-type">string</span></dt>
+    <dd>The bluetooth MAC address of the peripheral</dd>
+    <dt>rssi <span class="property-type">number</span></dt>
+    <dd>The received signal strength (RSSI)</dd>
+    <dt>txPowerLevel <span class="property-type">number</span></dt>
+    <dd>The transmitter power level</dd>
+    <dt class="optional">connectable <span class="property-type">boolean</span></dt>
+    <dd>Indication if the peripheral is accepting connection</dd>
+    <dt class="optional">name <span class="property-type">string</span></dt>
+    <dd>Local name of the peripheral</dd>
+    <dt class="optional">manufacturerData <span class="property-type">buffer</span></dt>
+    <dd>Vendor specific data</dd>
+    <dt class="optional">services <span class="property-type">array</span></dt>
+    <dd>List of discovered service UUID's</dd>
+    <dt class="optional">serviceData <span class="property-type">array</span></dt>
+    <dd>List of discovered service data</dd>
+  </dl>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('BLE device',{
-        category: 'Bluetooth',
-        color: '#4d94ff',
-        defaults: {
-            name: {value:""}
-        },
-        inputs:1,
-        outputs:1,
-        icon: "bluetooth.png",
-        label: function() {
-            return this.name||"BLE device";
-        }
-    });
+  RED.nodes.registerType("BLE device", {
+    category: "Bluetooth",
+    color: "#4d94ff",
+    defaults: {
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "bluetooth.png",
+    label: function () {
+      return this.name || "BLE device";
+    },
+  });
 </script>
 
 <script type="text/html" data-template-name="BLE device">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
 </script>
 
 <script type="text/html" data-help-name="BLE device">
-    <p>A bluetooth node that will connect to a peripheral device found by a BLE scanner node.</p>
-    
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>peripheral <span class="property-type">string</span></dt>
-        <dd> Peripheral reference received from a BLE scanner node </dd>
-     </dl>
-    <h3>Outputs</h3>
-    <dl class="message-properties">
+  <p>A bluetooth node that will connect to a peripheral device found by a BLE scanner node.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>peripheral <span class="property-type">string</span></dt>
+    <dd>Peripheral reference received from a BLE scanner node</dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
     <dt>topic <span class="property-type">string</span></dt>
-    <dd> Will be either <code>connected</code> or <code>disconnected</code> </dd>
+    <dd>Will be either <code>connected</code> or <code>disconnected</code></dd>
     <dt>connected <span class="property-type">boolean</span></dt>
-    <dd> Status if currently connected to the peripheral </dd>
+    <dd>Status if currently connected to the peripheral</dd>
     <dt class="optional">rssi <span class="property-type">number</span></dt>
-    <dd> The received signal strength (RSSI) </dd>
+    <dd>The received signal strength (RSSI)</dd>
     <dt class="optional">services <span class="property-type">array</span></dt>
-    <dd> List of discovered services </dd>
+    <dd>List of discovered services</dd>
     <dt class="optional">charateristics <span class="property-type">array</span></dt>
-    <dd> List of discovered charateristics </dd>
+    <dd>List of discovered charateristics</dd>
+  </dl>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('BLE in',{
-        category: 'Bluetooth',
-        color: '#4d94ff',
-        defaults: {
-            topic: {value:""},
-            characteristic: {value:""},
-            name: {value:""}
-        },
-        inputs:1,
-        outputs:1,
-        icon: "bluetooth.png",
-        label: function() {
-            return this.name||"BLE in";
-        }
-    });
+  RED.nodes.registerType("BLE in", {
+    category: "Bluetooth",
+    color: "#4d94ff",
+    defaults: {
+      topic: { value: "" },
+      characteristic: { value: "" },
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "bluetooth.png",
+    label: function () {
+      return this.name || "BLE in";
+    },
+  });
 </script>
 
 <script type="text/html" data-template-name="BLE in">
-    <div class="form-row">
-        <label for="node-input-topic" style="width: 120px"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic" placeholder="Topic">
-    </div>
-    <div class="form-row">
-        <label for="node-input-characteristic" style="width: 120px"><i class="fa fa-envelope"></i> Characteristic</label>
-        <input type="text" id="node-input-characteristic" placeholder="Characteristic UUID">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name" style="width: 120px"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+  <div class="form-row">
+    <label for="node-input-topic" style="width: 120px"><i class="fa fa-tasks"></i> Topic</label>
+    <input type="text" id="node-input-topic" placeholder="Topic" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-characteristic" style="width: 120px"><i class="fa fa-envelope"></i> Characteristic</label>
+    <input type="text" id="node-input-characteristic" placeholder="Characteristic UUID" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name" style="width: 120px"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
 </script>
 
 <script type="text/html" data-help-name="BLE in">
-    <p>A bluetooth node that will read or subscribe to data from a BLE peripheral.</p>
-    
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>peripheral <span class="property-type">string</span></dt>
-        <dd> Peripheral reference received from a BLE scanner node </dd>
-        <dt>characteristic <span class="property-type">string</span></dt>
-        <dd> Characteristic UUID to read or subscribe to </dd>
-        <dt>topic <span class="property-type">string</span></dt>
-        <dd> Must be either <code>read</code>, <code>subscribe</code> or <code>unsubscribe</code></dd>
-    </dl>
-    <h3>Outputs</h3>
-    <dl class="message-properties">
+  <p>A bluetooth node that will read or subscribe to data from a BLE peripheral.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>peripheral <span class="property-type">string</span></dt>
+    <dd>Peripheral reference received from a BLE scanner node</dd>
+    <dt>characteristic <span class="property-type">string</span></dt>
+    <dd>Characteristic UUID to read or subscribe to</dd>
+    <dt>topic <span class="property-type">string</span></dt>
+    <dd>Must be either <code>read</code>, <code>subscribe</code> or <code>unsubscribe</code></dd>
+  </dl>
+  <h3>Outputs</h3>
+  <dl class="message-properties">
     <dt>payload <span class="property-type">buffer</span></dt>
-    <dd> Data received from the device </dd>
+    <dd>Data received from the device</dd>
     <dt>characteristic <span class="property-type">object</span></dt>
-    <dd> Characteristic the data originated from </dd>
+    <dd>Characteristic the data originated from</dd>
+  </dl>
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('BLE out',{
-        category: 'Bluetooth',
-        color: '#4d94ff',
-        defaults: {
-            characteristic: {value:""},
-            name: {value:""}
-        },
-        inputs:1,
-        outputs:0,
-        align: "right",
-        icon: "bluetooth.png",
-        label: function() {
-            return this.name||"BLE out";
-        }
-    });
+  RED.nodes.registerType("BLE out", {
+    category: "Bluetooth",
+    color: "#4d94ff",
+    defaults: {
+      characteristic: { value: "" },
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 0,
+    align: "right",
+    icon: "bluetooth.png",
+    label: function () {
+      return this.name || "BLE out";
+    },
+  });
 </script>
 
 <script type="text/html" data-template-name="BLE out">
-    <div class="form-row">
-        <label for="node-input-characteristic" style="width: 120px"><i class="fa fa-envelope"></i> Characteristic</label>
-        <input type="text" id="node-input-characteristic" placeholder="Characteristic UUID">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name" style="width: 120px"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
+  <div class="form-row">
+    <label for="node-input-characteristic" style="width: 120px"><i class="fa fa-envelope"></i> Characteristic</label>
+    <input type="text" id="node-input-characteristic" placeholder="Characteristic UUID" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-name" style="width: 120px"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name" />
+  </div>
 </script>
 
-
 <script type="text/html" data-help-name="BLE out">
-    <p>A bluetooth node that will write data to a BLE peripheral.</p>
-    
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt>peripheral <span class="property-type">string</span></dt>
-        <dd> Peripheral reference received from a BLE scanner node </dd>
-        <dt>characteristic <span class="property-type">object</span></dt>
-        <dd> Characteristic to read or subscribe to </dd>
-        <dt>payload <span class="property-type">buffer | string</span></dt>
-        <dd> data to write to the device</dd>
-    </dl>
+  <p>A bluetooth node that will write data to a BLE peripheral.</p>
+
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt>peripheral <span class="property-type">string</span></dt>
+    <dd>Peripheral reference received from a BLE scanner node</dd>
+    <dt>characteristic <span class="property-type">object</span></dt>
+    <dd>Characteristic to read or subscribe to</dd>
+    <dt>payload <span class="property-type">buffer | string</span></dt>
+    <dd>data to write to the device</dd>
+  </dl>
 </script>
