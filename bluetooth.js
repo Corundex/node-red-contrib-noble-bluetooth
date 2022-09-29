@@ -146,7 +146,7 @@ module.exports = function (RED) {
         return;
       }
 
-      disconnect = msg.disconnect || node.config.disconnect;
+      disconnect = msg.disconnect || (node.config && node.config.disconnect);
       if (disconnect) {
         // noble._peripherals?.[msg.peripheral].disconnect();
         // pre node 12 compatibility
