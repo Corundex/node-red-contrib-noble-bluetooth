@@ -7,6 +7,7 @@
       services: { value: "", validate: RED.validators.typedInput("servicesType") },
       servicesType: { value: "str" },
       continuous: { value: false },
+      duplicate: { value: false },
     },
     inputs: 1,
     outputs: 1,
@@ -35,6 +36,10 @@
       <input type="checkbox" id="node-input-continuous" style="display:inline-block; width:22px; vertical-align:baseline;">Continuous scanning
   </div>
   <div class="form-row">
+      <label for="node-input-duplicate">&nbsp;</label>
+      <input type="checkbox" id="node-input-duplicate" style="display:inline-block; width:22px; vertical-align:baseline;">Duplicate scanning result
+  </div>
+  <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
       <input type="text" id="node-input-name" placeholder="Name">
   </div>
@@ -57,6 +62,11 @@
       <span class="property-type">boolean</span>
     </dt>
     <dd>Set to <code>true</code> to continue scanning after discovering first device. <code>false</code> by default</dd>
+    <dt class="optional">
+      duplicate
+      <span class="property-type">boolean</span>
+    </dt>
+    <dd>Set to <code>true</code> to duplicate scanning result. <code>false</code> by default</dd>
     <dt class="optional">
       timeout
       <span class="property-type">number</span>
@@ -93,6 +103,7 @@
     color: "#4d94ff",
     defaults: {
       name: { value: "" },
+      disconnect: { value: false },
     },
     inputs: 1,
     outputs: 1,
@@ -117,6 +128,8 @@
   <dl class="message-properties">
     <dt>peripheral <span class="property-type">string</span></dt>
     <dd>Peripheral reference received from a BLE scanner node</dd>
+    <dt class="optional">disconnect <span class="property-type">boolean</span></dt>
+    <dd>Set to <code>true</code> to disconnect peripheral. <code>false</code> by default</dd>
   </dl>
   <h3>Outputs</h3>
   <dl class="message-properties">
