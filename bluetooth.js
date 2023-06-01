@@ -310,7 +310,7 @@ module.exports = function (RED) {
         characteristic.on("data", function (data, isNotification) {
           var msg_ = {};
           msg_.characteristic = characteristic.uuid;
-          msg_.peripheral = characteristic;
+          msg_.peripheral = characteristic._peripheralId;
           msg_.payload = data;
           node.send(msg_);
         });
