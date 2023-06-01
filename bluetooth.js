@@ -291,10 +291,12 @@ module.exports = function (RED) {
       if (!topic && msg.topic) {
         topic = msg.topic;
       }
+
       if (topic === "subscribe") {
         characteristic.on("data", function (data, isNotification) {
           var msg_ = {};
           msg_.characteristic = characteristic.uuid;
+          msg_.peripheral = characteristic;
           msg_.payload = data;
           node.send(msg_);
         });
